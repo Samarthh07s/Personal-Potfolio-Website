@@ -203,7 +203,7 @@ function App() {
 
         <aside className="glass-panel hero-status">
           <div className="hero-status-media">
-            <img src="/education-campus.jpeg" alt="Ajeenkya DY Patil campus" />
+            <img src="education-campus.png" alt="Ajeenkya DY Patil campus" />
           </div>
 
           <div className="hero-status-body">
