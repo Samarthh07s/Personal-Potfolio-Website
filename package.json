@@ -1,3 +1,8 @@
+{
+  "name": "personal-potfolio-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "homepage": "https://Samarthh07s.github.io/Personal-Potfolio-Website/",
   "scripts": {
     "dev": "vite",
