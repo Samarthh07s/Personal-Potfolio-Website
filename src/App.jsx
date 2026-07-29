@@ -28,7 +28,6 @@ const navItems = [
 ]
 
 const heroStats = [
-  { value: profile.score, label: 'Current score' },
   { value: '03', label: 'Featured projects' },
   { value: profile.internshipDuration, label: 'Internship training' },
   { value: 'Python + Django', label: 'Primary lane' },
@@ -130,7 +129,6 @@ const experienceItems = [
 const educationItems = [
   { label: 'College', value: profile.college },
   { label: 'Program', value: profile.education },
-  { label: 'Current result', value: profile.score },
   { label: 'Current focus', value: 'Full Stack + AI/ML' },
 ]
 
@@ -191,7 +189,7 @@ function App() {
             </a>
           </div>
 
-          <div className="hero-stats">
+          <div className="hero-stats" style={{ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}>
             {heroStats.map((item) => (
               <div className="stat-tile" key={item.label}>
                 <strong>{item.value}</strong>
@@ -201,35 +199,7 @@ function App() {
           </div>
         </div>
 
-        <aside className="glass-panel hero-status">
-          <div className="hero-status-media">
-            <img src="education-campus.png" alt="Ajeenkya DY Patil campus" />
-          </div>
 
-          <div className="hero-status-body">
-            <div className="status-pill">
-              <span className="status-dot"></span>
-              Open to stronger internships and product work
-            </div>
-
-            <div className="status-grid">
-              <div>
-                <span className="panel-label">College</span>
-                <strong>{profile.college}</strong>
-              </div>
-              <div>
-                <span className="panel-label">Education</span>
-                <strong>{profile.education}</strong>
-              </div>
-              <div>
-                <span className="panel-label">Current focus</span>
-                <strong>
-                  {profile.focus} + Full Stack
-                </strong>
-              </div>
-            </div>
-          </div>
-        </aside>
       </header>
 
       <section className="dashboard-grid">
@@ -351,27 +321,18 @@ function App() {
           <div className="panel-head compact">
             <div>
               <span className="panel-label">Education</span>
-              <h2>{profile.score} score</h2>
+              <h2>{profile.college}</h2>
             </div>
             <span className="chip chip-muted">{profile.education}</span>
           </div>
 
-          <div className="education-layout">
-            <div className="score-ring" style={{ '--score': profile.score }}>
-              <div className="score-core">
-                <strong>{profile.score}</strong>
-                <span>Current result</span>
+          <div className="education-grid">
+            {educationItems.map((item) => (
+              <div className="education-card" key={item.label}>
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
               </div>
-            </div>
-
-            <div className="education-grid">
-              {educationItems.map((item) => (
-                <div className="education-card" key={item.label}>
-                  <span>{item.label}</span>
-                  <strong>{item.value}</strong>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </article>
 
