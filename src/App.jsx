@@ -1,13 +1,20 @@
 import { useEffect } from 'react'
 import './App.css'
+import { ContainerTextFlip } from './components/ui/container-text-flip'
+import { ExpandableProjectCards } from './components/ui/expandable-card'
+import { FloatingDockDemo } from './components/FloatingDockDemo'
+import { TimelineDemo } from './components/TimelineDemo'
+import { EducationCardSection } from './components/EducationCardSection'
+import { WavyBackgroundDemo } from './components/WavyBackgroundDemo'
 
 const profile = {
   name: 'Samarth Hingane',
   role: 'Python Full Stack Developer',
   focus: 'AI/ML Learner',
-  college: 'Ajeenkya DY Patil',
-  education: 'Diploma, 3rd Year',
-  score: '83%',
+  college: 'G H Raisoni International Skill Tech University',
+  education: 'B.Tech (Skill Tech), 2nd Year',
+  diplomaCollege: 'Ajeenkya DY Patil College of Engineering',
+  score: '84%',
   internship: 'Graphix Tech',
   internshipDuration: '3 months',
 }
@@ -17,53 +24,77 @@ const linkedinUrl =
 
 const githubUrl = 'https://github.com/Samarthh07s'
 
-const navItems = [
-  { label: 'Home', href: '#home' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Vlogs', href: '#vlogs' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Education', href: '#education' },
-  { label: 'About Us', href: '#about' },
-]
+
 
 const heroStats = [
   { value: '03', label: 'Featured projects' },
   { value: profile.internshipDuration, label: 'Internship training' },
-  { value: 'Python + Django', label: 'Primary lane' },
+  { value: '84%', label: 'Diploma Distinction' },
 ]
 
-const featuredProjects = [
+
+const baseUrl = import.meta.env.BASE_URL?.replace(/\/$/, '') || ''
+
+const expandableProjects = [
   {
     title: 'FinWise',
     type: 'Finance management system',
-    description:
-      'A personal finance workspace for tracking spending, understanding savings behavior, and making money flow easier to read.',
+    src: `${baseUrl}/finwise_preview.jpg`,
+    ctaText: 'View Repo',
+    ctaLink: 'https://github.com/Samarthh07s/FinWise',
     tags: ['Python', 'Django', 'Dashboard', 'Finance'],
-    repoUrl: 'https://github.com/Samarthh07s/FinWise',
+    content: () => (
+      <p>
+        FinWise is a personal finance workspace built with Python and Django,
+        focused on giving users a clear picture of their money. It tracks
+        spending patterns, visualises savings behavior over time, and surfaces
+        actionable insights through a clean dashboard. The project strengthened
+        my skills in ORM design, data aggregation, and building real interfaces
+        that people actually want to use.
+      </p>
+    ),
   },
   {
     title: 'SmartHealthCare',
     type: 'Healthcare workflow platform',
-    description:
-      'A healthcare-focused web project designed around clearer service access, cleaner flows, and practical information management.',
-    tags: ['Healthcare', 'System Design', 'UX'],
-    repoUrl: 'https://github.com/Samarthh07s/Smart-Health-Care',
+    src: `${baseUrl}/healthcare_preview.jpg`,
+    ctaText: 'View Repo',
+    ctaLink: 'https://github.com/Samarthh07s/Smart-Health-Care',
+    tags: ['Healthcare', 'System Design', 'UX', 'Django'],
+    content: () => (
+      <p>
+        SmartHealthCare is a healthcare-focused web project built around cleaner
+        service access and practical information management. It covers patient
+        record flows, appointment scheduling, and doctor profiles — all designed
+        with a clear UX hierarchy. This project pushed me to think deeply about
+        system design and real-world health data handling.
+      </p>
+    ),
   },
   {
     title: 'Barber Booking',
     type: 'Booking experience',
-    description:
-      'A scheduling web platform for appointments, customer convenience, and a smoother service-booking flow.',
-    tags: ['Booking', 'Frontend', 'User Flow'],
-    repoUrl: 'https://github.com/Samarthh07s/Barber-Shop',
+    src: `${baseUrl}/barber_preview.jpg`,
+    ctaText: 'View Repo',
+    ctaLink: 'https://github.com/Samarthh07s/Barber-Shop',
+    tags: ['Booking', 'Frontend', 'User Flow', 'JavaScript'],
+    content: () => (
+      <p>
+        Barber Booking is a scheduling platform designed to simplify the
+        appointment experience for both customers and service providers. The
+        focus was on a smooth, friction-free booking flow — selecting a barber,
+        picking a service, and locking in a time slot — all with a clean,
+        modern frontend that feels fast and intuitive.
+      </p>
+    ),
   },
 ]
 
 const aboutHighlights = [
-  'Third-year diploma student at Ajeenkya DY Patil with a growing portfolio of practical web projects.',
-  'Focused on Python full stack development while improving product thinking, UI polish, and real-world project structure.',
-  'Actively building stronger foundations in AI/ML so future projects carry both utility and technical depth.',
+  'Currently pursuing B.Tech in Skill Tech (2nd Year) at G H Raisoni International Skill Tech University, Pune (2026–Present).',
+  'Completed a Diploma in Engineering at Ajeenkya DY Patil College of Engineering, Pune, from 2023–2026 with First Class with Distinction (84%).',
+  'Completed a 3-month Python Full Stack Internship at Graphix Tech in 2025 during my diploma.',
+  'Actively expanding expertise across AI/ML foundations, System Design, and full-stack software development.',
 ]
 
 const contactDetails = [
@@ -84,15 +115,6 @@ const contactDetails = [
     href: githubUrl,
   },
   { label: 'Mobile', value: '9359940302', href: 'tel:9359940302' },
-]
-
-const skillSpectrum = [
-  { name: 'Python', value: '88%' },
-  { name: 'Django', value: '82%' },
-  { name: 'HTML / CSS', value: '84%' },
-  { name: 'JavaScript', value: '74%' },
-  { name: 'SQL', value: '71%' },
-  { name: 'AI/ML Foundation', value: '68%' },
 ]
 
 const vlogEntries = [
@@ -116,21 +138,6 @@ const vlogEntries = [
   },
 ]
 
-const experienceItems = [
-  {
-    company: 'Graphix Tech',
-    role: 'Python Full Stack Internship',
-    duration: '3 months',
-    description:
-      'Hands-on training with practical development workflow exposure, stronger implementation discipline, and full stack practice.',
-  },
-]
-
-const educationItems = [
-  { label: 'College', value: profile.college },
-  { label: 'Program', value: profile.education },
-  { label: 'Current focus', value: 'Full Stack + AI/ML' },
-]
 
 function App() {
   useEffect(() => {
@@ -158,26 +165,30 @@ function App() {
       <div className="ambient ambient-cool" aria-hidden="true"></div>
       <div className="ambient-room" aria-hidden="true"></div>
       <div className="ambient-noise" aria-hidden="true"></div>
+      <WavyBackgroundDemo />
 
-      <nav className="floating-nav" data-reveal aria-label="Primary">
-        {navItems.map((item) => (
-          <a className="nav-pill" key={item.label} href={item.href}>
-            {item.label}
-          </a>
-        ))}
-      </nav>
+      <FloatingDockDemo />
 
       <header className="hero-shell" id="home" data-reveal>
         <div className="hero-copy">
           <p className="hero-greeting">Hello, I&apos;m</p>
           <h1>
             {profile.name}
-            <span>{profile.role}</span>
+            <span className="hero-role-flip">
+              <ContainerTextFlip
+                words={[
+                  'Python Full Stack Developer',
+                  'AI Engineer',
+                  'Machine Learning',
+                  'DSA',
+                  'System Designer',
+                ]}
+                interval={2600}
+              />
+            </span>
           </h1>
           <p className="hero-description">
-            A third-year diploma student building practical web products with
-            Python, Django, HTML, CSS, JavaScript, and SQL while steadily
-            growing toward stronger AI/ML work.
+            Currently pursuing B.Tech (Skill Tech) 2nd Year in 2026 at G H Raisoni International Skill Tech University, Pune. Completed a 2023–2026 Diploma with 84% distinction and a 3-month Python Full Stack Internship in 2025 at Graphix Tech. Building practical web products with Python, Django, REST APIs, and modern frontend tools while steadily growing toward stronger AI/ML work.
           </p>
 
           <div className="hero-actions">
@@ -201,7 +212,7 @@ function App() {
 
 
       </header>
-
+      
       <section className="dashboard-grid">
         <article className="glass-panel project-panel" id="projects" data-reveal>
           <div className="panel-head">
@@ -212,70 +223,7 @@ function App() {
             <span className="chip chip-quiet">03 active</span>
           </div>
 
-          <div className="project-spotlight">
-            <div>
-              <span className="spotlight-kicker">{featuredProjects[0].type}</span>
-              <h3>{featuredProjects[0].title}</h3>
-            </div>
-            <p>{featuredProjects[0].description}</p>
-
-            <div className="project-tags">
-              {featuredProjects[0].tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="project-list">
-            {featuredProjects.map((project, index) => (
-              <a
-                className="project-tile"
-                href={project.repoUrl}
-                key={project.title}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span className="project-index">{`0${index + 1}`}</span>
-                <strong>{project.title}</strong>
-                <span className="project-type">{project.type}</span>
-                <p>{project.description}</p>
-              </a>
-            ))}
-          </div>
-        </article>
-
-        <article className="glass-panel skills-panel" id="skills" data-reveal>
-          <div className="panel-head">
-            <div>
-              <span className="panel-label">Skills</span>
-              <h2>Balanced for full stack growth</h2>
-            </div>
-          </div>
-
-          <div className="skill-list">
-            {skillSpectrum.map((item) => (
-              <div className="skill-row" key={item.name}>
-                <div className="skill-meta">
-                  <span>{item.name}</span>
-                  <strong>{item.value}</strong>
-                </div>
-                <div className="skill-track">
-                  <span style={{ width: item.value }}></span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="skill-cloud">
-            <span>Python</span>
-            <span>Django</span>
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
-            <span>SQL</span>
-            <span>AI/ML</span>
-            <span>UI Design</span>
-          </div>
+          <ExpandableProjectCards cards={expandableProjects} />
         </article>
 
         <article className="glass-panel vlog-panel" id="vlogs" data-reveal>
@@ -298,42 +246,30 @@ function App() {
         </article>
 
         <article className="glass-panel experience-panel" id="experience" data-reveal>
-          <div className="panel-head compact">
+          <div className="panel-head flex items-center justify-between flex-wrap gap-4 mb-2">
             <div>
-              <span className="panel-label">Experience</span>
-              <h2>{profile.internship}</h2>
+              <span className="panel-label">Experience &amp; Career Journey</span>
+              <h2>Interactive Experience Timeline</h2>
             </div>
-            <button className="panel-power" type="button" aria-label="Experience highlight">
-              O
-            </button>
+            <div className="flex items-center gap-2">
+              <span className="chip chip-quiet">Internship • Projects • Academics</span>
+              <span className="chip chip-muted">Scroll Animated Beam</span>
+            </div>
           </div>
 
-          {experienceItems.map((item) => (
-            <div className="experience-card" key={item.company}>
-              <span className="spotlight-kicker">{item.duration}</span>
-              <strong>{item.role}</strong>
-              <p>{item.description}</p>
-            </div>
-          ))}
+          <TimelineDemo />
         </article>
 
         <article className="glass-panel education-panel" id="education" data-reveal>
-          <div className="panel-head compact">
+          <div className="panel-head compact mb-3">
             <div>
               <span className="panel-label">Education</span>
-              <h2>{profile.college}</h2>
+              <h2>Academic Credentials</h2>
             </div>
-            <span className="chip chip-muted">{profile.education}</span>
+            <span className="chip chip-quiet">Undergrad + Diploma</span>
           </div>
 
-          <div className="education-grid">
-            {educationItems.map((item) => (
-              <div className="education-card" key={item.label}>
-                <span>{item.label}</span>
-                <strong>{item.value}</strong>
-              </div>
-            ))}
-          </div>
+          <EducationCardSection />
         </article>
 
         <article className="glass-panel connect-panel" data-reveal>
@@ -352,9 +288,6 @@ function App() {
           <div className="connect-actions">
             <a className="hero-button hero-button-primary" href={linkedinUrl} target="_blank" rel="noreferrer">
               LinkedIn
-            </a>
-            <a className="hero-button hero-button-secondary" href={featuredProjects[0].repoUrl} target="_blank" rel="noreferrer">
-              View FinWise
             </a>
             <a className="hero-button hero-button-secondary" href={githubUrl} target="_blank" rel="noreferrer">
               GitHub
